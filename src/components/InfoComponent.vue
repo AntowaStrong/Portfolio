@@ -65,6 +65,7 @@
                     border-radius: 50%;
                     overflow: hidden;
                     border: 6px solid #ffffff;
+                    background: #fff;
 
                     img{
                         width: 100%;
