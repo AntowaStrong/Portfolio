@@ -1,7 +1,7 @@
 <template>
-  <div id="SocialsComponent" v-bind:class="{ offset: offset }">
+  <div id="SocialsComponent" class="offset">
         <ul class="block-socials">
-            <li class="block-socials-element" v-if="socials && social.status" :key="social.name" v-for="social in socials">
+            <li class="block-socials-element" v-if="socials && social.status && social.sidebar" :key="social.name" v-for="social in socials">
                 <a :href="social.url">
                     <img :src="social.icon" :alt="social.name">
                 </a>
@@ -16,16 +16,33 @@
         props: ['socials', 'item'],
         watch:{
             item: function(item){
-                if(item.position == 0){
+                this.last = this.item.next == null ? this.$el.classList.add('hidden') : this.$el.classList.remove('hidden') ;
+
+
+                this.$el.classList.add('animate');
+
+                setTimeout(() => {
+                    this.$el.classList.remove('animate');
+                },500);
+
+
+                if(this.item.position == 0){
                     this.offset = true
+                    this.$el.classList.add('offset');
                 }else{
+                    this.$el.classList.remove('offset');
                     this.offset = false
                 }
+
+                
+               
             }
         },
         data(){
             return{
-                offset: true,       
+                offset: true,   
+                animate: false,
+                last: false,   
             }
         }
     };
@@ -38,11 +55,21 @@
         margin: 30px 0 0 0;
         z-index: 2;
         position: absolute;
-        left: 25px;
-        transition: top .50s;
+        left: 30px;
+        transition: top .50s, opacity .15s;
+        
+
 
         &.offset{
             top: 192px;
+        }
+
+        &.hidden{
+            opacity: 0;
+        }
+
+        &.animate{
+            opacity: 0;
         }
 
         .block-socials{
@@ -54,12 +81,12 @@
     
             .block-socials-element{
                 display: block;
-                margin: 5px;
+                margin: 0 10px 0 0;
                 
                 >a{
                     display: block;
-                    height: 44px;
-                    width: 44px;
+                    height: 32px;
+                    width: 32px;
 
                     img{
                         height: 100%;

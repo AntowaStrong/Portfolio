@@ -15,4 +15,7 @@ new Vue({
 //2 Set site title later!!
 //3 Dynamically set background image
 //4 Need more backgrounds!!!!!!
-//5 Load All info from json file ! 
+//5 switch background when user press arrow buttons
+//6 Add instagram, google.. 
+//7 contact form! 
+//8 add 

@@ -1,5 +1,5 @@
 <template>
-  <div id="MenuComponent" v-bind:class="{ offset: offset }" >
+  <div id="MenuComponent" class="offset" >
       <ul class="block-menu">
           <li class="block-menu-element" v-bind:class="{ active: item.active}" :key="item.position" v-on:click="$emit('switcher', item)" v-if="items" v-for="item in items">
               {{ item.name }}
@@ -14,9 +14,18 @@
         props: ['items', 'item'],
         watch:{
             item: function(item){
-                if(item.position == 0){
+                this.$el.classList.add('animate');
+
+                setTimeout(() => {
+                    this.$el.classList.remove('animate');
+                },500);
+
+
+                if(this.item.position == 0){
                     this.offset = true
+                    this.$el.classList.add('offset');
                 }else{
+                    this.$el.classList.remove('offset');
                     this.offset = false
                 }
             }
@@ -38,11 +47,18 @@
         margin: 30px 0 0 0;
         position: absolute;
         right: 30px;
-        transition: top .50s;
+        transition: top .50s, opacity .15s;
+        
+
 
         &.offset{
             top: 192px;
         }
+
+        &.animate{
+            opacity: 0;
+        }
+
 
         .block-menu{
             display: flex;
@@ -56,9 +72,11 @@
                 display: block;
                 text-transform: uppercase;
                 font-weight: 700;
-                font-size: 24px;
+                font-size: 18px;
                 color: #83909e;
-                margin: 0 0 5px 0;
+                line-height: 18px;
+                margin: 0px 0 10px 0;
+
                 cursor: pointer;
                 
                 &.active{

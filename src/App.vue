@@ -39,6 +39,7 @@ export default {
   created(){
     this.loadInfo();
     this.loadConfig();
+    
   },
   watch: {
     activeItem(item){
@@ -46,13 +47,33 @@ export default {
     } 
   },
   mounted(){
+      //     var a = new Date().getTime()
+
+
+      // 50000 - 40000
+
+      // console.log(new Date().getTime() - a)
+
+
     this.initActiveItem();
     this.initContainer();
+    window.addEventListener('wheel', this.scrollHandler);
+
+
+
+    // window
   },
   data: function(){
     return {
       activeItem: null,
       container: null,
+      scroll: {
+        time: 0,
+        i: 0,
+        times: [
+
+        ]
+      },
       menu: [],
       backgrounds: [],
       info: {
@@ -72,53 +93,84 @@ export default {
     };
   },
   methods: {
-      initContainer(){
-        this.container = this.$el.getElementsByClassName('sub-container')[0];
-      },
-      initActiveItem(){
-        if(this.menu.length != 0){
-          this.menuSwitch(this.menu[0]);
-        }
-      },
-      initMenuItems(items){
-        if(items.length != 0){
-            for(var i = 0; i < items.length; i++){
-              items[i].prev = items[i - 1] == undefined ? null : items[i - 1];
-              items[i].next = items[i + 1] == undefined ? null : items[i + 1];
-              this.menu.push(items[i]);
-            }
-        }        
-      },
-      loadInfo: function(){
-        for(var prop in info){
-          if(this.info[prop] !== undefined){
-            this.info[prop] = info[prop];
-          }
-        };
-      },
-      loadConfig(){
-        for(var prop in config){
-          if(this[prop] !== undefined){
-            switch (prop){
-              case "menu":
-                this.initMenuItems(config[prop]);
-                break;
-              default:
-                this[prop] = config[prop];
-            } 
-          }
-        }; 
-      },
-	    menuSwitch: function(item){
-        if(!item.active){
-          if(this.activeItem !== null){
-            this.activeItem.active = false;
-          }
-          item.active = true;
-          this.activeItem = item;
-        }
+    initContainer(){
+      this.container = this.$el.getElementsByClassName('sub-container')[0];
+    },
+    initActiveItem(){
+      if(this.menu.length != 0){
+        this.menuSwitch(this.menu[0]);
       }
+    },
+    initMenuItems(items){
+      if(items.length != 0){
+          for(var i = 0; i < items.length; i++){
+            items[i].prev = items[i - 1] == undefined ? null : items[i - 1];
+            items[i].next = items[i + 1] == undefined ? null : items[i + 1];
+            this.menu.push(items[i]);
+          }
+      }        
+    },
+    loadInfo: function(){
+      for(var prop in info){
+        if(this.info[prop] !== undefined){
+          this.info[prop] = info[prop];
+        }
+      };
+    },
+    loadConfig(){
+      for(var prop in config){
+        if(this[prop] !== undefined){
+          switch (prop){
+            case "menu":
+              this.initMenuItems(config[prop]);
+              break;
+            default:
+              this[prop] = config[prop];
+          } 
+        }
+      }; 
+    },
+    menuSwitch: function(item){
+      if(!item.active){
+        if(this.activeItem !== null){
+          this.activeItem.active = false;
+        }
+        item.active = true;
+        this.activeItem = item;
+      }
+    },
+    scrollHandler(a){
+
+
+
+      // this.scroll.times.push(a.timeStamp);
+
+      // console.log(this.scroll.i + ": " + a.timeStamp)
+      // this.scroll.i++;
+
+
+
+      // if(this.scroll.time + 1000 < a.timeStamp ){
+      //   console.log(this.scroll.time + ' ' + a.timeStamp)
+      //   //????????? whats wronk twih thath /|\
+      //   //
+      //   if(a.deltaY > 10){
+      //     console.log('up');
+      //   }else if(a.deltaY < - 10){
+      //     console.log('down')
+      //   }
+
+
+
+        //console.log(deltaY );
+     // }
+
+      //this.scroll.time = a.timeStamp
+      
+      
+      
     }
+  }
 };
 </script>
 
@@ -128,7 +180,7 @@ export default {
     width: 100%;
     margin: 0;
     overflow: hidden;
-    background: url('./assets/background-four.jpg') 100% 100% no-repeat;
+    background: url('./assets/background-seven.jpg') 100% 100% no-repeat;
     background-size: cover;
   }
 
@@ -165,7 +217,7 @@ export default {
         top: 0;
         position: absolute;
         z-index: 1;
-        transition: top .7s;
+        transition: top 1s;
         
         .content-container{
           width: 100%;

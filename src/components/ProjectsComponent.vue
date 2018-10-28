@@ -1,7 +1,23 @@
 <template>
   <section id="ProjectsComponent" class="content-container">
     <div class="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras efficitur commodo nunc, ut auctor tellus pulvinar vitae. Proin mattis sem vitae gravida ultrices.
 
+</p>
+        <div class="content-inner">
+            <div class="element"></div>
+            <div class="element"></div>
+            <div class="element"></div>
+            <div class="element"></div>
+            <div class="element"></div>
+            <div class="element"></div>
+                        <div class="element"></div>
+            <div class="element"></div>
+            <div class="element"></div>
+            <div class="element"></div>
+        </div>
+
+<!--
 Project name:
 Caradan Drive Systems
 Involvement duration:
@@ -120,7 +136,22 @@ Drupal, PHP, CSS, HTML, JS, MySQL, Git-->
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
     #ProjectsComponent{
+        .content-inner{
+            display: flex;
+            flex-wrap: wrap;
+                height: 100%;
+                overflow-y: scroll;
+    width: 100%;
 
+            .element{
+                height: 250px;
+                width: 20%;
+                display: flex;
+                margin: 15px 2.5%;
+                background: #f5f5f5;
+                border-radius: 4px;
+            }
+        }
     }
     
 </style>
