@@ -16,7 +16,7 @@
         props: ['socials', 'item'],
         watch:{
             item: function(item){
-                this.last = this.item.next == null ? this.$el.classList.add('hidden') : this.$el.classList.remove('hidden') ;
+                
 
 
                 this.$el.classList.add('animate');
@@ -48,7 +48,6 @@
     };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
     #SocialsComponent{
         top: 0;
@@ -58,10 +57,8 @@
         left: 30px;
         transition: top .50s, opacity .15s;
         
-
-
         &.offset{
-            top: 192px;
+            top: 152px;
         }
 
         &.hidden{

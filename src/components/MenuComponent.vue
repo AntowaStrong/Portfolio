@@ -49,10 +49,8 @@
         right: 30px;
         transition: top .50s, opacity .15s;
         
-
-
         &.offset{
-            top: 192px;
+            top: 152px;
         }
 
         &.animate{

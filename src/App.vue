@@ -1,30 +1,28 @@
 <template>
   <div id="app">
     <div class="container">
-      <ArrowComponent v-if="activeItem != null" :active="activeItem" :direction="1"  v-on:switcher="menuSwitch"/>
       <SocialsComponent :socials="info.socials" :item="activeItem"/>
       <MenuComponent :items="menu" v-on:switcher="menuSwitch" :item="activeItem"/>
       <div class="sub-container">
         <InfoComponent :info="info"/>
         <ProjectsComponent :projects="projects"/>
-        <ContactsComponent :info="info"/>
       </div>
-      <ArrowComponent v-if="activeItem != null" :active="activeItem" :direction="0"  v-on:switcher="menuSwitch"/>
+    </div>
+    <div class="background-container">
+      <div class="background-filter"></div>
+      <img class="background-image" :src="background">
     </div>
   </div>
 </template>
 
 <script>
-import InfoComponent from "./components/InfoComponent.vue";
-import ProjectsComponent from "./components/ProjectsComponent.vue";
-import ProjectComponent from "./components/ProjectComponent.vue";
-import MenuComponent from "./components/MenuComponent.vue";
-import ContactsComponent from "./components/ContactsComponent.vue";
-import SocialsComponent from "./components/SocialsComponent.vue";
-import ArrowComponent from "./components/ArrowComponent.vue"; 
-
 import info from "./data/info.js";
 import config from "./config/config.js";
+
+import InfoComponent from "./components/InfoComponent.vue";
+import ProjectsComponent from "./components/ProjectsComponent.vue";
+import MenuComponent from "./components/MenuComponent.vue";
+import SocialsComponent from "./components/SocialsComponent.vue";
 
 export default {
   name: "app",
@@ -32,9 +30,7 @@ export default {
     InfoComponent,
     ProjectsComponent,
     MenuComponent,
-    ContactsComponent,
     SocialsComponent,
-    ArrowComponent
   },
   created(){
     this.loadInfo();
@@ -47,21 +43,8 @@ export default {
     } 
   },
   mounted(){
-      //     var a = new Date().getTime()
-
-
-      // 50000 - 40000
-
-      // console.log(new Date().getTime() - a)
-
-
     this.initActiveItem();
     this.initContainer();
-    window.addEventListener('wheel', this.scrollHandler);
-
-
-
-    // window
   },
   data: function(){
     return {
@@ -75,7 +58,7 @@ export default {
         ]
       },
       menu: [],
-      backgrounds: [],
+      background: null,
       info: {
         logo: null,
         name: null,
@@ -83,7 +66,6 @@ export default {
         nickname: null,
         description: null,
         email: null,
-        phone: null,
         skype: null,
         telegram: null,
         documents: null,
@@ -138,37 +120,6 @@ export default {
         item.active = true;
         this.activeItem = item;
       }
-    },
-    scrollHandler(a){
-
-
-
-      // this.scroll.times.push(a.timeStamp);
-
-      // console.log(this.scroll.i + ": " + a.timeStamp)
-      // this.scroll.i++;
-
-
-
-      // if(this.scroll.time + 1000 < a.timeStamp ){
-      //   console.log(this.scroll.time + ' ' + a.timeStamp)
-      //   //????????? whats wronk twih thath /|\
-      //   //
-      //   if(a.deltaY > 10){
-      //     console.log('up');
-      //   }else if(a.deltaY < - 10){
-      //     console.log('down')
-      //   }
-
-
-
-        //console.log(deltaY );
-     // }
-
-      //this.scroll.time = a.timeStamp
-      
-      
-      
     }
   }
 };
@@ -180,7 +131,6 @@ export default {
     width: 100%;
     margin: 0;
     overflow: hidden;
-    background: url('./assets/background-seven.jpg') 100% 100% no-repeat;
     background-size: cover;
   }
 
@@ -202,14 +152,38 @@ export default {
     align-items: center;
     background: rgba(0, 0, 0, .6);
 
+    .background-container{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+
+      .background-filter{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        background: rgba(0, 0, 0, .2);
+        box-shadow: inset 0 0 300px 60px rgba(0,0,0,1);
+      }
+      
+      .background-image{
+        display: block;
+        // height: 163%;
+      }
+    }
     .container{
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-width: 1100px;
+      max-width: 1050px;
       width: 100%;
       height: 100%;
       position: relative;
+      z-index: 2;
 
       .sub-container{
         width: 100%;
@@ -229,7 +203,7 @@ export default {
           .content{
             background-color: #fff; 
             width: 100%;
-            padding: 155px 100px;
+            padding: 50px 100px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -237,8 +211,8 @@ export default {
           }
 
           .spacer{
-              width: 100%;
-              min-height: 192px;
+            width: 100%;
+            min-height: 150px;
           }
 
           &:first-child{
