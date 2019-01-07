@@ -84,11 +84,10 @@ export default {
                 padding: 15px;
                 width: 100%;
                 background: #f9f9f9;
+                text-align: center;
 
                 .name-fullname{
                     font-size: 16px;
-                    margin: 0;
-                   
                 }
             }
 
@@ -104,9 +103,7 @@ export default {
                 padding: 20px 15px;
                 border-radius: 4px;
                 background: #f9f9f9;
-                font-size: 14px;
                 margin: 0 0 60px;
-                text-align: left;
 
                 & > div{
                     width: 90%;
@@ -114,26 +111,12 @@ export default {
 
                 .skills{
                     margin: 0 0 10px;
-                    
-                    .title{
-                        margin: 0 0 6px 0;
-                        font-weight: 600;
-                    }
-
-                    .list{
-                        padding: 0 0 0 16px;
-                        margin: 0;
-                    }
                 }
 
                 .description{
                     .position{
                         margin: 0 0 10px 0;
                         font-size: 18px;
-                    }
-
-                    > p{
-                        margin: 0;
                     }
                 }
             }
@@ -162,6 +145,5 @@ export default {
                transition-delay: 1.4s !important; 
             }
         }
-        
     }
 </style>

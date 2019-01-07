@@ -66,8 +66,6 @@ export default {
 
     .socials{
         display: flex;
-        margin: 0;
-        padding: 0;
 
         .socials-item{
             display: flex;

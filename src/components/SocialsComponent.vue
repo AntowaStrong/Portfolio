@@ -43,33 +43,13 @@ export default {
 
 <style scoped lang="scss">
 .socials-sidebar{
-    top: 0;
-    margin: 30px 0 0 0;
-    z-index: 2;
-    position: absolute;
     left: 30px;
-    transition: top .50s, opacity .15s;
-    transition-delay: .6s, .2s;
-    
-    &.offset{
-        top: 145px;
-    }
-
-    &.hidden{
-        opacity: 0;
-    }
-
-    &.animate{
-        opacity: 0;
-    }
 
     .socials{
         display: flex;
         justify-content: center;
         list-style: none;
-        padding: 0;
-        margin: 0;
-
+        
         .socials-item{
             display: block;
             margin: 0 10px 0 0;

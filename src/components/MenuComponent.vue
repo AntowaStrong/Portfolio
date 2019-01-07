@@ -39,29 +39,13 @@ export default {
 
 <style scoped lang="scss">
 .menu-sidebar{
-    z-index: 2;
-    top: 0;
-    margin: 30px 0 0 0;
-    position: absolute;
     right: 30px;
-    transition: top .50s, opacity .15s;
-    transition-delay: .6s, .2s;
-    
-    &.offset{
-        top: 145px;
-    }
-
-    &.animate{
-        opacity: 0;
-    }
 
     .menu{
         display: flex;
         flex-direction: column;
         align-items: flex-end;
         list-style: none;
-        padding: 0;
-        margin: 0;
 
         .menu-item{
             display: block;
@@ -71,7 +55,6 @@ export default {
             color: #83909e;
             line-height: 18px;
             margin: 0px 0 10px 0;
-
             cursor: pointer;
             
             &.active{

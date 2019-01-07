@@ -48,8 +48,6 @@ export default {
     height: 100%;
     width: 100%;
     padding: 0 20px 0 0;
-    font-size: 14px;
-    text-align: left;
 
     .content{
         padding: 15px !important;
@@ -93,8 +91,7 @@ export default {
                 }
 
                 .project-description{
-                    font-size: 14px;
-                    text-align: left;
+                    margin: 1em 0;
                 }
 
                 &:after {
@@ -108,8 +105,6 @@ export default {
                 margin: 0 0 25px 0;
 
                 .tools{
-                    margin: 0;
-                    padding: 0;
                     list-style: none;
                     flex-wrap: wrap;
                     display: flex;
@@ -119,24 +114,10 @@ export default {
             .project-responsibilities{
                 width: 100%;
                 margin: 0 0 30px 0;
-
-                .title{
-                    margin: 0 0 5px 0;
-                    font-weight: 600;
-                }
-                
-                .list{
-                    margin: 0;
-                    padding: 0 0 0 16px;
-                }
             }
 
             .project-source{
                 width: 100%;
-
-                .project-link{
-                    margin: 0;
-                }
             }
         }
     }

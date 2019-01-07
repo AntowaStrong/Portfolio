@@ -148,6 +148,24 @@ html,body{
   box-sizing: border-box;
 }
 
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+p{
+  margin: 0;
+}
+
+.title{
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.list{
+  padding: 0 0 0 16px;
+}
+
 #app {
   position: relative;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -161,6 +179,8 @@ html,body{
   flex-direction: column;
   align-items: center;
   background: rgba(0, 0, 0, .6);
+  text-align: left;
+  font-size: 14px;
 
   .background{
     position: absolute;
@@ -184,6 +204,7 @@ html,body{
       display: block;
     }
   }
+
   .container{
     display: flex;
     flex-direction: column;
@@ -193,6 +214,23 @@ html,body{
     height: 100%;
     position: relative;
     z-index: 2;
+
+    .sidebar{
+      top: 0;
+      margin: 30px 0 0 0;
+      z-index: 2;
+      position: absolute;
+      transition: top .50s, opacity .15s;
+      transition-delay: .6s, .2s;
+    
+      &.offset{
+        top: 145px;
+      }
+
+      &.animate{
+        opacity: 0;
+      }
+    }
 
     .pages{
       width: 100%;
