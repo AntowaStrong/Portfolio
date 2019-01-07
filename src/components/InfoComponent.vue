@@ -1,5 +1,5 @@
 <template>
-  <section id="InfoComponent" class="content-container">
+  <section id="InfoComponent" class="content-container" :class="{active: active}"> 
     <div class="spacer"></div>
     <div class="content">
         <div class="block-image">
@@ -10,55 +10,41 @@
         </div>
         <div class="inner-content">
             <div class="block-description">
+                <h3 class="block-description-position">{{info.position}}</h3>
                 <p class="block-description-p" v-html="info.description"></p>
             </div>
-            <div class="block-skills">
-                <p class="block-skills-title">Skills:</p>
+            
+            <div class="block-skills" v-if="info.skills">
+                <p class="block-skills-title">Навыки:</p>
                 <ul class="block-skills-list">
-                    <li class="block-skills-element">Drupal 7/8</li>
-                    <li class="block-skills-element">PHP</li>
-                    <li class="block-skills-element">Wordpress</li>
-                    <li class="block-skills-element">Yii2</li>
-                    <li class="block-skills-element">Sass/Less</li>
-                    <li class="block-skills-element">Terminal</li>
-                    <li class="block-skills-element">Composer</li>
-                    <li class="block-skills-element">NPM</li>
-                    <li class="block-skills-element">Git</li>
-                    <li class="block-skills-element">SSH</li>
-                    <li class="block-skills-element">Node.js</li>
-                    <li class="block-skills-element">CSS3</li>
-                    <li class="block-skills-element">HTML5</li>
-                    <li class="block-skills-element">JavaScript</li>
-                    <li class="block-skills-element">Vue.js</li>
-                    <li class="block-skills-element">MySQl</li>
-                    <li class="block-skills-element">jQuery</li>
-                    <li class="block-skills-element">Bootstrap</li>
-                    <li class="block-skills-element">SQLite</li>
+                    <li class="block-skills-element" v-for="(skill, index) in info.skills" v-bind:key="index" v-html="skill"></li>
                 </ul>
             </div>
         </div>
-        <div class="bottom">                
-            <div class="block-socials">
-                <ul class="block-socials-ul">
-                    <li class="block-socials-li" v-if="info.socials && social.status && !social.sidebar" :key="social.name" v-for="social in info.socials">
-                        <a :href="social.url">
-                            <img :src="social.icon" :alt="social.name">
-                            <div>
-                            <p>{{social.name}}</p>
-</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>                
-        </div>
+        <SocialBarComponent :socials="info.socials"/>               
     </div>
   </section>
 </template>
 
 <script>
+    import SocialBarComponent from './SocialBarComponent.vue';
+
     export default {
         name: "InfoComponent",
-        props: ['info']
+        components: {
+            SocialBarComponent
+        },
+        props: ['info', 'item'],
+        watch: {
+            item(item){
+                this.active = item.component.name == this.$options._componentTag;
+            }
+        },
+        data(){
+            return {
+                active: false
+            }
+        },
     };
 </script>
 
@@ -89,183 +75,86 @@
                 }
             }  
             .block-name{
-                margin: 0 0 25px 0;
+                opacity: 0;
+                transition: opacity .4s;
+                margin: 20px 0 35px 0;
+                padding: 15px;
+                width: 100%;
+                background: #f9f9f9;
+
                 .block-name-p{
-                    font-size: 17px;
+                    font-size: 16px;
                     margin: 0;
                    
                 }
             }
 
             .inner-content{
+                opacity: 0;
+                transition: opacity .4s;
+                transition-delay: .2s;
                 height: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 align-items: center;
-                padding: 15px;
+                padding: 20px 15px;
                 border-radius: 4px;
-                
                 background: #f9f9f9;
-                font-size: 15px;
-                margin: 0 0 100px;
+                font-size: 14px;
+                margin: 0 0 60px;
+                text-align: left;
+
+                & > div{
+                    width: 90%;
+                }
 
                 .block-skills{
-                    width: 70%;
+                    margin: 0 0 10px;
+                    
+                    .block-skills-title{
+                        margin: 0 0 6px 0;
+                        font-weight: 600;
+                    }
                     .block-skills-list{
-                        padding: 0;
+                        padding: 0 0 0 16px;
                         margin: 0;
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: flex-start;
-                        justify-content: center;
-                        list-style: none;
-
-                        .block-skills-element{
-                            display: block;
-                            padding: 4px 8px;
-                            margin: 5px 5px;
-                            border-radius: 10px;
-                            border: 1px solid #2c3e50;
-                            /* color: #fff; */
-                            /* font-weight: 700; */
-                            //background: rgba(255, 255, 255, 1);
-                        }
                     }
                 }
                 .block-description{
-                    width: 70%;
-
+                    .block-description-position{
+                        margin: 0 0 10px 0;
+                        font-size: 18px;
+                    }
                     .block-description-p{
-                        //font-size: 14px;
                         margin: 0;
                     }
                 }
             }
 
-            .bottom{
-                background: #f9f9f9;
-                padding: 30px 15px;
-                display: flex;
-                border-radius: 4px;
-                width: 100%;
-                font-size: 14px;
-                justify-content: center;
-                align-items: center;
+            .block-socials{
+                transition-delay: .4s;
+            }
+        }
 
-                .block-contacts-details{
-                   
-                    p{
-                         display: flex;
-                        margin: 0 0 3px 0;
-                        text-align: left;
-
-                        >span{
-                            margin: 0 4px 0 0;
-                            height: 18px;
-                            width: 18px;
-                            display: block;
-                            
-                        }
-
-
-                    
-                        &.email{
-                            >span{
-                                background: url(../assets/email.svg);
-                                background-size: cover;
-                            }
-                        }
-                        &.phone{
-                            >span{
-                                background: url(../assets/phone.svg);
-                                background-size: cover;
-                            }
-                        }
-                        &.telegram{
-                            >span{
-                                background: url(../assets/telegram.svg);
-                                background-size: cover;
-                            }
-                        }
-                        &.skype{
-                            >span{
-                                background: url(../assets/skype.svg);
-                                background-size: cover;
-                            }
-                        }
-                    }
-
-
-                }
-
-                .block-socials{
-  
-                    ul{
-                        display: flex;
-                        margin: 0;
-                        padding: 0;
-
-                        li{
-                            display: block;
-                            margin: 0 8px 0 0 ;
-
-                            a{
-                                height: 28px;
-                                // width: 28px;
-                                display: flex;
-                                img{
-                                    display: block;
-                                    height: 100%;
-                                    z-index: 1;
-                                    // width: 100%;
-                                }
-
-                                //607D8B
-                                div{
-                                    display: flex;
-                                    padding: 0 10px 0 0;
-                                    margin: 0 0 0 -28px;
-                                    align-items: center;
-                                    height: 100%;
-                                    text-align: center;
-                                    border-radius: 15px;
-                                    background: #607D8B;
-                                    transition: all .6s;
-                                    color: white;
-                                    text-decoration: none;
-                                    overflow: hidden;
-                                    width: 10px;
-                                    min-width: 28px;
-                                    p{
-                                        display: block;
-                                        margin: 0 0 0 32px;
-                                        word-wrap: none;
-                                        word-break: none;
-                                        white-space: nowrap;
-                                    }
-                                }
-
-                                &:hover, &:visited, &:link, &x:active{
-
-                                            text-decoration: none;
-                                }
-
-
-                            }
-                            &:hover{
-                                a{
-                                    div{
-                                        width: 100px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
+        &.active{
+            .inner-content,
+            .block-name,
+            .block-socials{
+                opacity: 1 !important;
             }
 
+            .inner-content{
+               transition-delay: 1.2s !important; 
+            }
+
+            .block-name{
+               transition-delay: 1s !important; 
+            }
+
+            .block-socials{
+               transition-delay: 1.4s !important; 
+            }
         }
         
     }

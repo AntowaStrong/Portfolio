@@ -4,8 +4,8 @@
       <SocialsComponent :socials="info.socials" :item="activeItem"/>
       <MenuComponent :items="menu" v-on:switcher="menuSwitch" :item="activeItem"/>
       <div class="sub-container">
-        <InfoComponent :info="info"/>
-        <ProjectsComponent :projects="projects"/>
+        <InfoComponent :info="info" :item="activeItem"/>
+        <ProjectsComponent :projects="projects" :info="info" :item="activeItem"/>
       </div>
     </div>
     <div class="background-container">
@@ -17,12 +17,14 @@
 
 <script>
 import info from "./data/info.js";
+import projects from "./data/projects.js";
 import config from "./config/config.js";
 
 import InfoComponent from "./components/InfoComponent.vue";
 import ProjectsComponent from "./components/ProjectsComponent.vue";
 import MenuComponent from "./components/MenuComponent.vue";
 import SocialsComponent from "./components/SocialsComponent.vue";
+
 
 export default {
   name: "app",
@@ -35,6 +37,7 @@ export default {
   created(){
     this.loadInfo();
     this.loadConfig();
+    this.loadProjects();
     
   },
   watch: {
@@ -65,6 +68,8 @@ export default {
         surname: null,
         nickname: null,
         description: null,
+        skills: null,
+        position: null,
         email: null,
         skype: null,
         telegram: null,
@@ -92,25 +97,30 @@ export default {
           }
       }        
     },
-    loadInfo: function(){
-      for(var prop in info){
-        if(this.info[prop] !== undefined){
-          this.info[prop] = info[prop];
+    loadProjects: function(){
+        for(var i = 0; i < projects.length; i++){
+          this.projects.push(projects[i]);
         }
-      };
+    },
+    loadInfo: function(){
+        for(var prop in info){
+          if(this.info[prop] !== undefined){
+            this.info[prop] = info[prop];
+          }
+        }
     },
     loadConfig(){
-      for(var prop in config){
-        if(this[prop] !== undefined){
-          switch (prop){
-            case "menu":
-              this.initMenuItems(config[prop]);
-              break;
-            default:
-              this[prop] = config[prop];
-          } 
+        for(var prop in config){
+          if(this[prop] !== undefined){
+            switch (prop){
+              case "menu":
+                this.initMenuItems(config[prop]);
+                break;
+              default:
+                this[prop] = config[prop];
+            } 
+          }
         }
-      }; 
     },
     menuSwitch: function(item){
       if(!item.active){
@@ -179,7 +189,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-width: 1050px;
+      max-width: 1048px;
       width: 100%;
       height: 100%;
       position: relative;
@@ -192,6 +202,7 @@ export default {
         position: absolute;
         z-index: 1;
         transition: top 1s;
+        transition-delay: .4s;
         
         .content-container{
           width: 100%;
@@ -203,7 +214,7 @@ export default {
           .content{
             background-color: #fff; 
             width: 100%;
-            padding: 50px 100px;
+            padding: 50px 140px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -228,7 +239,30 @@ export default {
               border-bottom-right-radius: 4px;
             }
           }
-
+        
+          &#ProjectsComponent{
+            .block-projects{
+              .project-list{
+                .vb-dragger {
+                  right: 0px;
+                  width: 6px;
+                  background: #f5f5f5;
+                  border-radius: 2px;
+                  opacity: 1;
+                  //transition: height .2s;
+                }
+              }
+              
+              &.opening,
+              &.closing{
+                .project-list{
+                  .vb-dragger{
+                    opacity: 0;
+                  } 
+                }
+              }
+            }
+          }
         }
       }
     }

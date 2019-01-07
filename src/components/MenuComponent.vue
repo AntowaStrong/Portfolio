@@ -20,7 +20,6 @@
                     this.$el.classList.remove('animate');
                 },500);
 
-
                 if(this.item.position == 0){
                     this.offset = true
                     this.$el.classList.add('offset');
@@ -48,15 +47,15 @@
         position: absolute;
         right: 30px;
         transition: top .50s, opacity .15s;
+         transition-delay: .6s, .2s;
         
         &.offset{
-            top: 152px;
+            top: 145px;
         }
 
         &.animate{
             opacity: 0;
         }
-
 
         .block-menu{
             display: flex;
