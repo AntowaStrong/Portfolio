@@ -1,54 +1,56 @@
 <template>
-  <section id="InfoComponent" class="content-container" :class="{active: active}"> 
+<section id="InfoComponent" class="info-page page" :class="{active: active}"> 
     <div class="spacer"></div>
     <div class="content">
-        <div class="block-image">
+        <div class="block-logo block">
             <img v-bind:src="info.logo">
         </div>
-        <div class="block-name">
-            <p class="block-name-p">{{info.name}} <b class="block-name-b">"{{info.nickname}}"</b> {{info.surname}}</p>
+
+        <div class="block-name block">
+            <p class="name-fullname">{{info.name}} <b class="name-nickname">"{{info.nickname}}"</b> {{info.surname}}</p>
         </div>
-        <div class="inner-content">
-            <div class="block-description">
-                <h3 class="block-description-position">{{info.position}}</h3>
-                <p class="block-description-p" v-html="info.description"></p>
+
+        <div class="block-about block">
+            <div class="description">
+                <h3 class="position">{{info.position}}</h3>
+                <p v-html="info.description"></p>
             </div>
             
-            <div class="block-skills" v-if="info.skills">
-                <p class="block-skills-title">Навыки:</p>
-                <ul class="block-skills-list">
-                    <li class="block-skills-element" v-for="(skill, index) in info.skills" v-bind:key="index" v-html="skill"></li>
+            <div class="skills" v-if="info.skills">
+                <p class="title">Навыки:</p>
+                <ul class="list">
+                    <li class="list-item" v-for="(skill, index) in info.skills" v-bind:key="index" v-html="skill"></li>
                 </ul>
             </div>
         </div>
+
         <SocialBarComponent :socials="info.socials"/>               
     </div>
-  </section>
+</section>
 </template>
 
 <script>
-    import SocialBarComponent from './SocialBarComponent.vue';
+import SocialBarComponent from './SocialBarComponent.vue';
 
-    export default {
-        name: "InfoComponent",
-        components: {
-            SocialBarComponent
-        },
-        props: ['info', 'item'],
-        watch: {
-            item(item){
-                this.active = item.component.name == this.$options._componentTag;
-            }
-        },
-        data(){
-            return {
-                active: false
-            }
-        },
-    };
+export default {
+    name: "InfoComponent",
+    components: {
+        SocialBarComponent
+    },
+    props: ['info', 'item'],
+    watch: {
+        item(item){
+            this.active = item.component.name == this.$options._componentTag;
+        }
+    },
+    data(){
+        return {
+            active: false
+        }
+    },
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
     #InfoComponent{
         .content{
@@ -56,7 +58,7 @@
             padding-top: 80px !important;
             position: relative;
         
-            .block-image{
+            .block-logo{
                 top: -80px;
                 position: absolute;
                 height: 160px;
@@ -68,12 +70,13 @@
                 border: 6px solid #ffffff;
                 background: #fff;
 
-                img{
+                > img{
                     width: 100%;
                     height: auto; 
                     position: absolute;
                 }
             }  
+
             .block-name{
                 opacity: 0;
                 transition: opacity .4s;
@@ -82,14 +85,14 @@
                 width: 100%;
                 background: #f9f9f9;
 
-                .block-name-p{
+                .name-fullname{
                     font-size: 16px;
                     margin: 0;
                    
                 }
             }
 
-            .inner-content{
+            .block-about{
                 opacity: 0;
                 transition: opacity .4s;
                 transition-delay: .2s;
@@ -109,24 +112,27 @@
                     width: 90%;
                 }
 
-                .block-skills{
+                .skills{
                     margin: 0 0 10px;
                     
-                    .block-skills-title{
+                    .title{
                         margin: 0 0 6px 0;
                         font-weight: 600;
                     }
-                    .block-skills-list{
+
+                    .list{
                         padding: 0 0 0 16px;
                         margin: 0;
                     }
                 }
-                .block-description{
-                    .block-description-position{
+
+                .description{
+                    .position{
                         margin: 0 0 10px 0;
                         font-size: 18px;
                     }
-                    .block-description-p{
+
+                    > p{
                         margin: 0;
                     }
                 }
@@ -138,13 +144,13 @@
         }
 
         &.active{
-            .inner-content,
+            .block-about,
             .block-name,
             .block-socials{
                 opacity: 1 !important;
             }
 
-            .inner-content{
+            .block-about{
                transition-delay: 1.2s !important; 
             }
 

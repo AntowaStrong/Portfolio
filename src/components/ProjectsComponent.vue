@@ -1,16 +1,16 @@
 <template>
-  <section id="ProjectsComponent" class="content-container" :class="{active: active}">
+  <section id="ProjectsComponent" class="projects-page page" :class="{active: active}">
     <div class="content">
-        <div class="block-projects" v-bind:class="[{opened: element}, animation]">
+        <div class="block-projects block" v-bind:class="[{opened: element}, animation]">
             <div class="project-view">
-                <div class="project-view-close" v-on:click="toggleView(element, $event)">+</div>
+                <div class="close" v-on:click="toggleView(element, $event)">+</div>
                 <ProjectComponent v-if="element" :project="element"/>
             </div>
-            <div class="project-list" v-bar>
+            <div class="projects" v-bar>
                 <div>
-                    <div class="project-element" v-for="project in projects" :key="project.id" v-on:click="toggleView(project, $event)" :class="{active: element && project.id == element.id}">
-                        <img class="project-image" :src="project.image" :alt="project.name" :class="project.stretchimage">
-                        <p class="project-name">{{project.name}}</p>
+                    <div class="projects-item" v-for="project in projects" :key="project.id" v-on:click="toggleView(project, $event)" :class="{active: element && project.id == element.id}">
+                        <img class="image" :src="project.image" :alt="project.name" :class="project.stretchimage">
+                        <p class="name">{{project.name}}</p>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@ export default {
                 setTimeout(() => {
                     this.animation = null;
                     var $list = this.$el.getElementsByClassName('vb-content')[0];
-                    var $element = e.target.closest('.project-element');
+                    var $element = e.target.closest('.projects-item');
                     $list.scrollTop = $element.offsetTop;
                 }, 800);
 
@@ -90,7 +90,6 @@ export default {
             .block-projects,
             .block-socials{
                 opacity: 1 !important; 
-                
             }
 
             .block-projects{
@@ -115,12 +114,12 @@ export default {
 
                 &.opened{
                     .project-view,
-                    .project-list{
+                    .projects{
                         width: 50% !important;
                         opacity: 1;
                     }
 
-                    .project-element{
+                    .projects-item{
                         &:nth-last-child(-n+2){
                             margin-bottom: 0;
                         }
@@ -128,7 +127,7 @@ export default {
                 }
 
                 &:not(.opened){
-                    .project-element{
+                    .projects-item{
                     &:nth-last-child(-n+4){
                             margin-bottom: 0;
                         }
@@ -160,7 +159,7 @@ export default {
                     position: relative;
                     opacity: 0;
 
-                    .project-view-close{
+                    .close{
                         position: absolute;
                         right: 26px;
                         top: 0px;
@@ -178,14 +177,14 @@ export default {
                     }
                 }
 
-                .project-list{
+                .projects{
                     transition: .6s;
                     width: 100%;
                     display: flex;
                     flex-wrap: wrap;
                     position: relative;
                     
-                    .project-element{
+                    .projects-item{
                         height: 250px;
                         width: 172px;
                         margin: 0 20px 20px 0;
@@ -199,7 +198,7 @@ export default {
                         border-radius: 4px;
                         border: 1px solid #bbbbbb;
 
-                        .project-name{
+                        .name{
                             position: absolute;
                             color: #fff;
                             font-weight: 700;
@@ -216,7 +215,7 @@ export default {
                             margin: 0;
                         }
 
-                        .project-image{
+                        .image{
                             display: block;
                             height: auto;
                             transition: .7s;
@@ -233,11 +232,11 @@ export default {
                         
                         &.active,
                         &:hover{
-                            .project-name{
+                            .name{
                                 opacity: 1;
                             }
 
-                            .project-image{
+                            .image{
                                 opacity: 0.2;
                             } 
                         }
